@@ -16,7 +16,7 @@ with gr.Blocks() as demo:
             banding = gr.Checkbox(label = 'Enable color bands', value = True, interactive = True)
             show_tick_marks = gr.Checkbox(label = 'Show tick marks', value = False, interactive = True)
     submit = gr.Button('Generate Plot') 
-    plot = gr.Plot(format = 'png', label = 'Julia Set')
-    #submit.click(fn = plot_julia_set, inputs = [eval(f'{real} + {imag}j'), max_iter, pixel_density, cmap, banding, show_tick_marks], outputs = plot)
+    image = gr.Image(format = 'png', label = 'Julia Set', width = 800, height = 600)
+    submit.click(fn = plot_julia_set, inputs = [real, imag, max_iter, pixel_density, cmap, banding, show_tick_marks], outputs = image)
 
 demo.launch()
