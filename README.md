@@ -20,4 +20,24 @@ on the terminal and use the app on your local server.
 
 OR
 
-2. Access the app via HuggingFace Spaces through this link (to add).
+Access the app via HuggingFace Spaces through this link (to add).
+
+2. Once you have access to the app, you can then input any complex number `c` that you want to generate the Julia set of the function `f(z) = z^2 + c`. 
+
+### Recommended Julia Set Seeds
+
+These complex numbers are known to generate visually interesting Julia sets:
+
+| Real Part      | Imaginary Part   |
+|----------------|------------------|
+| -0.1156437876  | 0.8690819138     |
+| -0.7269        | 0.1889           |
+| -0.5125114984  | 0.5212955731     |
+| -0.4           | 0.6              |
+| -0.5012149299  | -0.5637838176    |
+| 0              | -0.8             |
+| -0.8           | 0.156            |
+| -0.7773672345  | -0.1782126754    |
+| -0.06353957916 | -0.6992547595    |
+| -0.5064253507  | 0.5981400301     |
+| 0.2803481964   | -0.5273108717    |
