@@ -5,10 +5,7 @@ import numpy as np
 from numba import vectorize
 from matplotlib.colors import LogNorm
 from matplotlib import cm
-import matplotlib.pyplot as plt
-import copy
-from PIL import Image
-from io import BytesIO
+import gradio as gr
 
 # This is a vectorized implementation (via numba) of the escape-time algorithm (with threshold = 2). 
 @vectorize
@@ -30,43 +27,17 @@ def get_stability_map(c, max_iter = 100, pixel_density = 1):
     return np.flipud(stability(z, c, max_iter))
 
 # This plots the Julia set of a given complex number c.
-def plot_julia_set(real, imag, max_iter = 500, pixel_density = 1.0, cmap = 'magma', banding = True, show_tick_marks = False):
-  try:  
+def plot_julia_set(real, imag, max_iter = 500, pixel_density = 1.0, cmap = 'magma'):
+  try:
     c = complex(float(real), float(imag))
     stabilities = get_stability_map(c = c, max_iter = max_iter, pixel_density = pixel_density)
-
-    fig, ax = plt.subplots(figsize = (8, 6), dpi = 100)
-    if banding:
-        my_cmap = copy.copy(cm.get_cmap(cmap))
-        my_cmap.set_bad(eval(f'cm.{cmap}({1/max_iter})'))
-        ax.imshow(stabilities, cmap = my_cmap, norm = LogNorm(), interpolation = None, aspect = 1.25 / 1.5)
-    else:
-        ax.imshow(stabilities, cmap = cmap, aspect = 1.25 / 1.5)
-
-    if show_tick_marks:
-        xtick_labels = np.linspace(-1.5, 1.5, 6)
-        ax.set_xticks([(int(1000 * pixel_density) / 3) * (x + 1.5) for x in xtick_labels],
-                      labels=['{:.1f}'.format(xtick) for xtick in xtick_labels])
-        ytick_labels = np.linspace(-1.25, 1.25, 6)
-        ax.set_yticks([-(int(750 * pixel_density) / 2.5) * (y - 1.25) for y in ytick_labels],
-                      labels=['{:.1f}'.format(ytick) for ytick in ytick_labels])
-    else:
-        ax.set_xticks([])
-        ax.set_yticks([])
-
-    # Remove whitespace and axes
-    plt.axis('off')
-    fig.tight_layout(pad=0)
-
-    # Save figure to buffer
-    buf = BytesIO()
-    fig.savefig(buf, format = 'png', bbox_inches = 'tight', pad_inches = 0)
-    buf.seek(0)
-
-    # Close the figure to free memory
-    plt.close(fig)
-
-    # Convert buffer to PIL Image
-    return Image.open(buf)
-  except:
-     return 
+    # Normalize values for log scaling; induces image banding
+    norm = LogNorm(vmin = 1 / max_iter, vmax = 1.0)
+    normalized = norm(stabilities)  # Now between 0 and 1, log-scaled
+    # Apply colormap
+    rgba_img = cm.get_cmap(cmap)(normalized)  # shape (H, W, 4), values in [0, 1]
+    # Drop alpha channel and convert to uint8
+    rgb_img = (rgba_img[:, :, :3] * 255).astype("uint8")
+    return rgb_img  # NumPy array
+  except Exception as e:
+    raise gr.Error(f"Error generating image: {e}")
