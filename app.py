@@ -1,6 +1,10 @@
+# This file is the main application file to host the application logic
+
+# Importing gradio and the plot_julia_set function from funcs.py
 import gradio as gr
 from funcs import plot_julia_set
 
+# Adding all the interactive components of the application
 with gr.Blocks() as demo:
     with gr.Row():
         with gr.Column():
@@ -12,6 +16,7 @@ with gr.Blocks() as demo:
     colormap_choices = ['binary', 'inferno', 'magma', 'cividis','viridis', 'plasma', 'Pastel1', 'Pastel2', 'Paired', 'Accent', 'flag', 'prism', 'ocean', 'gist_earth', 'terrain', 'gist_stern', 'rainbow', 'jet', 'turbo', 'gray', 'bone', 'pink', 'spring', 'summer', 'autumn', 'winter', 'cool', 'hot', 'copper']
     cmap = gr.Dropdown(label = 'Choose colormap', choices = colormap_choices, value = 'binary', interactive = True)    
     submit = gr.Button('Generate Plot') 
+    # Adding the image output component
     with gr.Row():
         image = gr.Image(label = 'Julia Set', width = 800, height = 600, interactive = False)
     submit.click(fn = plot_julia_set, inputs = [real, imag, max_iter, pixel_density, cmap], outputs = image)

@@ -26,7 +26,7 @@ def get_stability_map(c, max_iter = 100, pixel_density = 1):
     z = x[np.newaxis, :] + y[:, np.newaxis] * 1j
     return np.flipud(stability(z, c, max_iter))
 
-# This plots the Julia set of a given complex number c.
+# This plots the Julia set of a given complex number c, returning a Numpy array that will be used in a Gradio image component
 def plot_julia_set(real, imag, max_iter = 500, pixel_density = 1.0, cmap = 'magma'):
   try:
     c = complex(float(real), float(imag))
