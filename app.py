@@ -17,6 +17,7 @@ with gr.Blocks() as demo:
             <li><strong>Adjust the pixel density</strong> to control the resolution.</li>
             <li><strong>Choose a colormap</strong> to customize the appearance.</li>
             <li>Click <strong>"Generate Plot"</strong> to render the image.</li>
+            <li>For more info, see this <a href="https://github.com/ArnelMalubay/julia-visualizer-using-gradio" target="_blank">GitHub repository</a>.</li>
         </ol>
     </div>
     """)
