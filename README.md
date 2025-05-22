@@ -1,7 +1,7 @@
 # Julia Set Visualizer using Gradio
 This is a simple Gradio implementation of my Julia Set visualizer previously implemented and deployed in Streamlit.
 
-<p align="center"><img src="assets/app_screenshot.png" width="700"/></p>
+<p align="center"><img src="assets/screenshot_app.png" width="700"/></p>
 
 Accessing the App
 =================
