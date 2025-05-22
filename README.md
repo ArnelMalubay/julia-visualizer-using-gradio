@@ -20,7 +20,7 @@ on the terminal and use the app on your local server.
 
 OR
 
-Access the app via HuggingFace Spaces through this link (to add).
+Access the app via HuggingFace Spaces through this <a href="https://huggingface.co/spaces/arnel8888/julia-set-visualizer" target="_blank">link</a>.
 
 2. Once you have access to the app, you can then input any complex number `c` that you want to generate the Julia set of the function `f(z) = z^2 + c`. 
 
